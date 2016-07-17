@@ -23,4 +23,6 @@ public class SettingController {
     public  String setting(HttpSession httpSession) {
         return "Setting OK. "+ wendaService.getMessage(1);
     }
+
+    /**/
 }
