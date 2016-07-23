@@ -20,8 +20,10 @@ import java.util.Random;
 @SpringApplicationConfiguration(classes = WendaApplication.class)
 @Sql("/init-schema.sql")
 public class InitDatabaseTests {
+
     @Autowired
     UserDAO userDAO;
+
     @Autowired
     QuestionDAO questionDAO;
 
@@ -54,7 +56,7 @@ public class InitDatabaseTests {
         Assert.assertEquals("xx",userDAO.selectById(1).getPassword());
         userDAO.deleteById(1);
         Assert.assertNull(userDAO.selectById(1));
-        questionDAO.selectLatestQuestion(0,0,10);
+        questionDAO.selectLatestQuestions(0,0,5);
 	}
 
 }
