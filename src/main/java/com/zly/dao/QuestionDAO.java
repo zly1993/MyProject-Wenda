@@ -21,8 +21,6 @@ public interface QuestionDAO {
         //上面的values后面的值，从下面的user中来
     int addQuestion(Question question);   //往表中插入一条数据
 
-    //下面的方法没有使用注解的方法，而是使用xml配置文件的方法，对应Question.xml文件
-    List<Question> selectLatestQuestions(@Param("userId") int userId,
-                                         @Param("offset") int offset,
+    List<Question> selectLatestQuestions(@Param("userId") int userId, @Param("offset") int offset,
                                          @Param("limit") int limit);
 }

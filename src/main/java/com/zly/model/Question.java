@@ -13,14 +13,6 @@ public class Question {
     private int userId;
     private int commentCount;
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public int getId() {
         return id;
     }
@@ -51,6 +43,14 @@ public class Question {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getCommentCount() {

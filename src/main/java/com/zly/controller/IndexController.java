@@ -25,7 +25,7 @@ import java.util.*;
  * Created by ly on 2016/7/16.
  * 该部分为Controller，主要实现请求参数解析，以及返回的数据的控制
  */
-@Controller
+//@Controller
 public class IndexController {
     private static final Logger logger  = LoggerFactory.getLogger(IndexController.class);
     @Autowired
