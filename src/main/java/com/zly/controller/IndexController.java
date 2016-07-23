@@ -121,6 +121,3 @@ public class IndexController {
         return "error:"+e.getMessage();
     }
 }
-
-
-
