@@ -2,7 +2,7 @@ drop table if exists `question`;
 create table `question`(
 	`id` int not null auto_increment,
     `title` varchar(225) not null,
-    `conment` text null,
+    `content` text null,
     `user_id` int not null,
     `created_date` datetime not null,
     `comment_count` int not null,
