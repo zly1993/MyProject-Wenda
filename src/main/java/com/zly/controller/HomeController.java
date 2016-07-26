@@ -1,5 +1,6 @@
 package com.zly.controller;
 
+import com.zly.model.HostHolder;
 import com.zly.model.Question;
 import com.zly.model.ViewObject;
 import com.zly.service.QuestionService;
@@ -34,21 +35,12 @@ public class HomeController {
     @Autowired
     QuestionService questionService;
 
-    @RequestMapping(path={"/user/{userId}"},method = {RequestMethod.GET})
-    public String userIndex(Model model, @PathVariable("userId") int userId) {
-        model.addAttribute("vos",getQuestions(userId,0,10));
-        return "index";
-    }
-
-    @RequestMapping(path={"/","/index"},method = {RequestMethod.GET})
-    public String index(Model model) {
-        model.addAttribute("vos",getQuestions(0,0,10));
-        return "index";
-    }
+    @Autowired
+    HostHolder hostHolder;
 
     private List<ViewObject> getQuestions(int userId,int offset,int limit) {
         List<Question> questionList = questionService.getLatestQuestions(userId,offset,limit);
-        List<ViewObject> vos = new ArrayList<ViewObject>();
+        List<ViewObject> vos = new ArrayList<>();
         for (Question question : questionList) {
             ViewObject vo = new ViewObject();
             vo.set("question",question);
@@ -57,4 +49,22 @@ public class HomeController {
         }
         return vos;
     }
+
+    @RequestMapping(path={"/user/{userId}"},method = {RequestMethod.GET})
+    public String userIndex(Model model, @PathVariable("userId") int userId) {      //用户页面
+        model.addAttribute("vos",getQuestions(userId,0,10));
+        return "index";
+    }
+
+    @RequestMapping(path={"/","/index"},method = {RequestMethod.GET})           //首页
+    public String index(Model model) {
+        model.addAttribute("vos",getQuestions(0,0,10));
+        hostHolder.getUser();
+        return "index";
+    }
+
+
+
+
+
 }

@@ -14,13 +14,13 @@ import static com.zly.dao.UserDAO.TABLE_NAME;
 @Mapper
 public interface UserDAO {
     String TABLE_NAME = "user";
-    String INSET_FIELDS = " name, password, salt, head_url ";
+    String INSERT_FIELDS = " name, password, salt, head_url ";
     String SELECT_FIELDS = " id, name, password, salt, head_url";
 
-    @Insert({"insert into ", TABLE_NAME, "(", INSET_FIELDS,
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values (#{name},#{password},#{salt},#{headUrl})"})
         //上面的values后面的值，从下面的user中来
-    int addUser(User user);   //往表中插入一条数据
+    int addUser(User user);   //往表中插入一条数据，添加一个用户
 
     @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME , "where id=#{id}"})
     User selectById(int id);
@@ -30,5 +30,8 @@ public interface UserDAO {
 
     @Delete({"delete from ",TABLE_NAME," where id=#{id}"})
     void deleteById(int id);
+
+    @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME , "where name=#{name}"})
+    User selectByName(String name);
 
 }
