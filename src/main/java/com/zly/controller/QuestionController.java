@@ -3,6 +3,7 @@ package com.zly.controller;
 import com.zly.dao.QuestionDAO;
 import com.zly.model.*;
 import com.zly.service.CommentService;
+import com.zly.service.LikeService;
 import com.zly.service.QuestionService;
 import com.zly.service.UserService;
 import com.zly.util.WendaUtil;
@@ -36,6 +37,9 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping(value="/question//add",method = {RequestMethod.POST})
     @ResponseBody
@@ -72,6 +76,13 @@ public class QuestionController {
         for(Comment comment : commentList){
             ViewObject vo = new ViewObject();
             vo.set("comment",comment);
+            if(hostHolder.getUser()==null){
+                vo.set("liked",0);
+            }else{
+                vo.set("liked",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()));
+            }
+
+            vo.set("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
             vo.set("user",userService.getUser(comment.getUserId()));
             comments.add(vo);
         }
