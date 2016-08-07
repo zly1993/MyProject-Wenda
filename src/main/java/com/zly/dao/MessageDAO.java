@@ -24,7 +24,7 @@ public interface MessageDAO {
 
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,
             " where conversation_id=#{conversationId} order by created_date desc limit #{offset},#{limit}"})
-    List<Message> getConversationDetal(@Param("conversationId") String conversationId,
+    List<Message> getConversationDetail(@Param("conversationId") String conversationId,
                                        @Param("offset") int offset,
                                        @Param("limit") int limit);
 

@@ -16,32 +16,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by ly on 2016/8/7.
  */
 @Controller
-public class LikeController {       //点赞
+public class LikeController {
     @Autowired
     LikeService likeService;
 
     @Autowired
     HostHolder hostHolder;
 
-    @RequestMapping(path = {"/like"},method = {RequestMethod.POST})
+
+    @RequestMapping(path = {"/like"}, method = {RequestMethod.POST})
     @ResponseBody
-    public String like(@RequestParam("commentId") int commentId){
-        if(hostHolder.getUser()==null){
+    public String like(@RequestParam("commentId") int commentId) {
+        if (hostHolder.getUser() == null) {
             return WendaUtil.getJSONString(999);
         }
 
-        long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT,commentId);
-        return WendaUtil.getJSONString(0,String.valueOf(likeCount));
+        long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
+        return WendaUtil.getJSONString(0, String.valueOf(likeCount));
     }
-    @RequestMapping(path = {"/dislike"},method = {RequestMethod.POST})
+
+    @RequestMapping(path = {"/dislike"}, method = {RequestMethod.POST})
     @ResponseBody
-    public String disLike(@RequestParam("commentId") int commentId){
-        if(hostHolder.getUser()==null){
+    public String dislike(@RequestParam("commentId") int commentId) {
+        if (hostHolder.getUser() == null) {
             return WendaUtil.getJSONString(999);
         }
 
-        long likeCount = likeService.disLike(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT,commentId);
-        return WendaUtil.getJSONString(0,String.valueOf(likeCount));
+        long likeCount = likeService.disLike(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
+        return WendaUtil.getJSONString(0, String.valueOf(likeCount));
     }
-
 }

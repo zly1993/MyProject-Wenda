@@ -23,7 +23,7 @@ import java.util.Date;
  */
 @Controller
 public class CommentController {
-    private static final Logger logger  = LoggerFactory.getLogger(CommentController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
     @Autowired
     HostHolder hostHolder;
 
@@ -33,9 +33,10 @@ public class CommentController {
     @Autowired
     QuestionService questionService;
 
-    @RequestMapping(path = {"/addComment"},method = {RequestMethod.POST})
+
+    @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
     public String addComment(@RequestParam("questionId") int questionId,
-                             @RequestParam("content") String content){
+                             @RequestParam("content") String content) {
         try {
             Comment comment = new Comment();
             comment.setContent(content);
@@ -43,17 +44,19 @@ public class CommentController {
                 comment.setUserId(hostHolder.getUser().getId());
             } else {
                 comment.setUserId(WendaUtil.ANONYMOUS_USERID);
+                // return "redirect:/reglogin";
             }
             comment.setCreatedDate(new Date());
-            comment.setEntityId(questionId);
             comment.setEntityType(EntityType.ENTITY_QUESTION);
+            comment.setEntityId(questionId);
             commentService.addComment(comment);
-            int count = commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
-            questionService.updateCommentCount(comment.getEntityId(),count);
-        }catch (Exception e){
-            logger.error("增加评论失败"+e.getMessage());
-        }
-        return "redirect:/question/" + String.valueOf(questionId);
-    }
 
+            int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
+            questionService.updateCommentCount(comment.getEntityId(), count);
+
+        } catch (Exception e) {
+            logger.error("增加评论失败" + e.getMessage());
+        }
+        return "redirect:/question/" + questionId;
+    }
 }

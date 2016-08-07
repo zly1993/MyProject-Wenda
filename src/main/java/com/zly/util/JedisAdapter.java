@@ -228,5 +228,4 @@ public class JedisAdapter implements InitializingBean {
     }
 
 
-
 }

@@ -14,15 +14,12 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class SettingController {
-
     @Autowired
     WendaService wendaService;
 
-    @RequestMapping(path = {"/setting"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/setting"}, method = {RequestMethod.GET})
     @ResponseBody
-    public  String setting(HttpSession httpSession) {
-        return "Setting OK. "+ wendaService.getMessage(1);
+    public String setting(HttpSession httpSession) {
+        return "Setting OK. " + wendaService.getMessage(1);
     }
-
-    /**/
 }

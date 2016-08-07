@@ -1,4 +1,5 @@
 #parse("header.html")
+<link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css">
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix with-indention-votebar" itemscope="" itemtype="http://schema.org/Question"
      id="zh-single-question-page" data-urltoken="36301524" role="main">
@@ -87,22 +88,22 @@
                     <div class="zm-votebar goog-scrollfloater js-vote" data-id="$!{comment.comment.id}">
                         #if($comment.liked > 0)
                         <button class="up js-like pressed" title="赞同">
-                            #else
-                            <button class="up js-like" title="赞同">
-                                #end
-                                <i class="icon vote-arrow"></i>
-                                <span class="count js-voteCount">$!{comment.likeCount}</span>
-                                <span class="label sr-only">赞同</span>
-                            </button>
+                        #else
+                        <button class="up js-like" title="赞同">
+                        #end
+                            <i class="icon vote-arrow"></i>
+                            <span class="count js-voteCount">$!{comment.likeCount}</span>
+                            <span class="label sr-only">赞同</span>
+                        </button>
 
-                            #if($comment.liked < 0)
-                            <button class="down js-dislike pressed" title="反对，不会显示你的姓名">
-                                #else
-                                <button class="down js-dislike" title="反对，不会显示你的姓名">
-                                    #end
-                                    <i class="icon vote-arrow"></i>
-                                    <span class="label sr-only">反对，不会显示你的姓名</span>
-                                </button>
+                        #if($comment.liked < 0)
+                        <button class="down js-dislike pressed" title="反对，不会显示你的姓名">
+                        #else
+                        <button class="down js-dislike" title="反对，不会显示你的姓名">
+                        #end
+                            <i class="icon vote-arrow"></i>
+                            <span class="label sr-only">反对，不会显示你的姓名</span>
+                        </button>
                     </div>
                     <div class="answer-head">
                         <div class="zm-item-answer-author-info">
@@ -140,20 +141,20 @@
 
             <form action="/addComment" method="post">
                 <input type="hidden" name="questionId" value="$!{question.id}"/>
-                <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
-                    <div class="zm-editable-editor-wrap" style="">
-                        <div class="zm-editable-editor-outer">
-                            <div class="zm-editable-editor-field-wrap">
-                                <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="width:100%;"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="zm-command clearfix">
-                            <span class=" zg-right">
-                                <button type="submit" class="submit-button zg-btn-blue">发布回答</button></span>
+            <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
+                <div class="zm-editable-editor-wrap" style="">
+                    <div class="zm-editable-editor-outer">
+                        <div class="zm-editable-editor-field-wrap">
+                            <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="width:100%;"></textarea>
                         </div>
                     </div>
+
+                    <div class="zm-command clearfix">
+                            <span class=" zg-right">
+                                <button type="submit" class="submit-button zg-btn-blue">发布回答</button></span>
+                    </div>
                 </div>
+            </div>
             </form>
 
         </div>

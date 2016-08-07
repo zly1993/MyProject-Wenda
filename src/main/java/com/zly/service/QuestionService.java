@@ -15,30 +15,28 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     QuestionDAO questionDAO;
+
     @Autowired
     SensitiveService sensitiveService;
 
-    public Question selectById(int id){
-        return questionDAO.selectById(id);
+    public Question getById(int id) {
+        return questionDAO.getById(id);
     }
 
-    public int addQuestion(Question question){
-        //html标签过滤
-        question.setContent(HtmlUtils.htmlEscape(question.getContent()));
+    public int addQuestion(Question question) {
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
-
-        //敏感词过滤
+        question.setContent(HtmlUtils.htmlEscape(question.getContent()));
+        // 敏感词过滤
         question.setTitle(sensitiveService.filter(question.getTitle()));
         question.setContent(sensitiveService.filter(question.getContent()));
-
-        return questionDAO.addQuestion(question)>0 ? question.getId():0 ;
+        return questionDAO.addQuestion(question) > 0 ? question.getId() : 0;
     }
 
-    public List<Question> getLatestQuestions(int userId,int offset,int limit) {
+    public List<Question> getLatestQuestions(int userId, int offset, int limit) {
         return questionDAO.selectLatestQuestions(userId, offset, limit);
     }
 
-    public int updateCommentCount(int entityId,int count){
-        return questionDAO.updateCommentCount(entityId,count);
+    public int updateCommentCount(int id, int count) {
+        return questionDAO.updateCommentCount(id, count);
     }
 }
