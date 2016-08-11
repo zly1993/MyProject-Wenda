@@ -1,7 +1,12 @@
 package com.zly.controller;
 
+import com.zly.async.EventModel;
+import com.zly.async.EventProducer;
+import com.zly.async.EventType;
+import com.zly.model.Comment;
 import com.zly.model.EntityType;
 import com.zly.model.HostHolder;
+import com.zly.service.CommentService;
 import com.zly.service.LikeService;
 import com.zly.util.WendaUtil;
 import org.apache.catalina.Host;
@@ -23,6 +28,12 @@ public class LikeController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    EventProducer eventProducer;
+
+    @Autowired
+    CommentService commentService;
+
 
     @RequestMapping(path = {"/like"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -30,6 +41,11 @@ public class LikeController {
         if (hostHolder.getUser() == null) {
             return WendaUtil.getJSONString(999);
         }
+        Comment comment = commentService.getCommentById(commentId);
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(hostHolder.getUser().getId()).setEntityId(commentId)
+                .setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(comment.getUserId())
+                .setExt("questionId",String.valueOf(comment.getEntityId())));
 
         long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
         return WendaUtil.getJSONString(0, String.valueOf(likeCount));

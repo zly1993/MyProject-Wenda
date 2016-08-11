@@ -1,5 +1,9 @@
 package com.zly.controller;
 
+import com.zly.async.EventHandler;
+import com.zly.async.EventModel;
+import com.zly.async.EventProducer;
+import com.zly.async.EventType;
 import com.zly.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -27,6 +31,8 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EventProducer eventProducer;
 
     @RequestMapping(path = {"/reg/"}, method = {RequestMethod.POST})
     public String reg(Model model, @RequestParam("username") String username,
@@ -81,6 +87,9 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
 
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username",username).setExt("email","605708285@qq.com")
+                        .setActorId((int)map.get("userId")));
 
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;
