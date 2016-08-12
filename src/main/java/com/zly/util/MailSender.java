@@ -4,6 +4,7 @@ package com.zly.util;
 import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -31,9 +32,8 @@ public class MailSender implements InitializingBean{
     public boolean sendWithHTMLTemplate(String to, String subject,
                                         String template, Map<String, Object> model) {
         try {
-            System.out.println(to);
-            String nick = MimeUtility.encodeText("神山妙客");
-            InternetAddress from = new InternetAddress(nick + "<shenshanmiaoke@163.com>");
+            String nick = MimeUtility.encodeText("测试");
+            InternetAddress from = new InternetAddress(nick + "<605708285@qq.com>");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             String result = VelocityEngineUtils
@@ -42,7 +42,6 @@ public class MailSender implements InitializingBean{
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setSubject(subject);
             mimeMessageHelper.setText(result, true);
-            System.out.println(result);
             mailSender.send(mimeMessage);
             return true;
         } catch (Exception e) {
@@ -54,9 +53,9 @@ public class MailSender implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
         mailSender = new JavaMailSenderImpl();
-        mailSender.setUsername("shenshanmiaoke@163.com");
-        mailSender.setPassword("zhongluyao0123");
-        mailSender.setHost("smtp.163.com");
+        mailSender.setUsername("605708285@qq.com");
+        mailSender.setPassword("dbrwzwsbobuzbcgf");
+        mailSender.setHost("smtp.qq.com");
         //mailSender.setHost("smtp.qq.com");
         mailSender.setPort(465);
         mailSender.setProtocol("smtps");
